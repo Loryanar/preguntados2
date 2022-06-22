@@ -1,0 +1,68 @@
+
+<div
+style="
+
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+"
+*ngIf="loading"
+>
+<ion-spinner name="lines" style="color: #2eff74e1"></ion-spinner>
+</div>
+
+<ion-content>
+<div id="header">
+  <img src="assets/logo.png" />
+  <h1>Preguntados</h1>
+</div>
+
+<ion-item>
+  <ion-input
+    [value]="name"
+    (input)="name=$event.target.value"
+    type="text"
+    placeholder="Nombre"
+  ></ion-input>
+</ion-item>
+<br />
+<ion-item>
+  <ion-input
+    [value]="password"
+    (input)="password=$event.target.value"
+    type="password"
+    placeholder="Contraseña"
+  ></ion-input>
+</ion-item>
+<br />
+<ion-button
+  [disabled]="!name ||!password "
+  expand="block"
+  shape="round"
+  (click)="login()"
+  >Iniciar Secion</ion-button
+>
+
+<div id="register">
+  <ng-template [ngIf]="error">
+    <br />
+    <ion-item>
+      <p>{{error}}</p>
+    </ion-item>
+  </ng-template>
+  <br />
+  <ion-item>
+    <p>
+      o
+      <a (click)="goToRegister()"> Registrate </a>
+     si no tienes una cuenta creada
+    </p>
+  </ion-item>
+</div>
+</ion-content>

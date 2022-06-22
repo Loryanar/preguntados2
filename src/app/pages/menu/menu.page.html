@@ -1,0 +1,43 @@
+<div
+style="
+
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+"
+*ngIf="loading"
+>
+<ion-spinner name="lines" style="color: #2eff74e1"></ion-spinner>
+</div>
+
+<ion-content>
+<div id="header">
+  <img src="assets/logo.png" />
+  <h1>Preguntados</h1>
+</div>
+
+
+<ion-button
+  
+  expand="block"
+  shape="round"
+  (click)="goToNormal()"
+  >Jugar</ion-button
+>
+
+
+<ion-button
+  
+  expand="block"
+  shape="round"
+  (click)="goToRush()"
+  >Modo Rush</ion-button
+>
+
+</ion-content>
