@@ -60,4 +60,27 @@ return false;
       return false;
     }
   }
+  async datos(){
+    try{
+      let d = await this.request.getdatos();
+      console.log(d)
+      return d;
+
+    }catch{
+      return false;
+    }
+  }
+
+  async cerrar() {
+    try {
+
+      let msg = await this.request.logout()
+      console.log(msg);
+      
+      return true
+      
+    } catch (e) {
+      return false
+    }
+  }
 }

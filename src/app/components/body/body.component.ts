@@ -86,7 +86,7 @@ this.ron= rondas +"/10";
     localStorage.setItem("puntuacion", String(p) );
 
    this.goToNormal();
-   this.router.navigate(['/normal']);
+   window.location.assign('normal');
   
     
    }else{
@@ -150,7 +150,7 @@ updateTimeValue(){
 
 
 goToNormal() {
-  this.router.navigate(['normal']);
+  window.location.assign('rush');
 }
 
 async putt() {

@@ -76,4 +76,30 @@ export class RequestService {
       throw new Error(await res.text());
     }
   }
+  async getdatos() {
+    const res = await this.request2('GET', '/datos');
+    let data = await res.json();
+    console.log(data);
+    
+    if (res.ok) {
+      return data;
+      
+    } else {
+      throw new Error(await res.text());
+    }
+  }
+
+  async logout() {
+    const res = await this.request2('GET', '/log');
+    let data = await res.json();
+    console.log(data);
+    
+    
+    if (res.ok) {
+      return data;
+      
+    } else {
+      throw new Error(await res.text());
+    }
+  }
 }

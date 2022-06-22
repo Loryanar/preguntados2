@@ -63,7 +63,7 @@ const timm= parseInt(temi)+0.14+0.33
   
     }
   play(boolean){
-
+   
   const rondas =localStorage.getItem("partidas1");
    const pu =localStorage.getItem("puntuacion1");
  localStorage.setItem("partidas1", String(0) );
@@ -72,7 +72,6 @@ const timm= parseInt(temi)+0.14+0.33
   this.ron= 'Ronda' + rondas
     
       
-  if(parseInt(rondas)>=0){
      if(this.loading1==true){
      
       const parti= parseInt(rondas)+1;
@@ -87,8 +86,7 @@ const timm= parseInt(temi)+0.14+0.33
       console.log(p)
       localStorage.setItem("puntuacion1", String(p) );
   
-     this.goToRush();
-    
+      window.location.assign('rush');
      }else{
        this.router.navigate(['menu']);
       localStorage.removeItem("partidas1" );
@@ -96,13 +94,7 @@ const timm= parseInt(temi)+0.14+0.33
       this.putt();
        localStorage.setItem("puntos1", String(0) );
      }
-  }else{this.router.navigate(['menu']);
-  localStorage.removeItem("partidas1" );
-  localStorage.removeItem("puntuacion1" );
-  this.putt();
-   localStorage.setItem("puntos1", String(0) );
   
-}
   
   
   
@@ -148,7 +140,7 @@ const timm= parseInt(temi)+0.14+0.33
   
   
   goToRush() {
-    this.router.navigate(['rush']);
+    window.location.assign('rush');
   }
   
   async putt() {
