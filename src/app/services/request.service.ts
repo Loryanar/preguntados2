@@ -27,6 +27,7 @@ export class RequestService {
     })
   }
   private request2(method: string, endpoint: string, body?) {
+    console.log( localStorage.getItem("token"))
     return fetch(config.server_url + endpoint, {
       method,
       headers: new Headers({
@@ -51,7 +52,9 @@ export class RequestService {
   async send(params, endpoint: string, method?) {
     const res = await this.request(method || 'POST', endpoint, params);
     if (res.ok) {
-      return await res.json();
+      let data1 = await res.json();
+      console.log(data1)
+      return data1;
     } else {
       throw new Error(await res.text());
     }

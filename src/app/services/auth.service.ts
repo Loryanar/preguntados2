@@ -18,9 +18,11 @@ export class AuthService {
 
   async login(params){
     try {
-      await this.request.send(params, '/log');
-     
-      return true;
+      let data=await this.request.send(params, '/log');
+     let trueq=true
+    let dataf='{data:'+data+',truee:'+trueq+'}';
+    console.log(dataf)
+      return data; 
     } catch {
       return false;
     }

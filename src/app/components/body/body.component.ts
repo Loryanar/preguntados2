@@ -68,27 +68,33 @@ this.ron= rondas +"/10";
     
    if(this.loading1==true){
    
-     
+    if(parseInt(rondas)==10){
+      this.router.navigate(['menu']);
+      this.putt();
+    }
+   
     const parti= parseInt(rondas)+1;
-  
+    console.log(parti)
     localStorage.setItem("partidas", String(parti) );
 
     const pts =localStorage.getItem("puntos");
     const p= parseInt(pu)+10;
-    const pun= parseInt(pts) + p;
+    const pun=  p;
     
    localStorage.setItem("puntos", String(pun) );
    
     localStorage.setItem("puntuacion", String(p) );
 
- 
-   this.router.navigate(['normal']);
+   this.goToNormal();
+   this.router.navigate(['/normal']);
   
     
    }else{
     this.router.navigate(['menu']);
     localStorage.removeItem("partidas" );
     localStorage.removeItem("puntuacion" );
+    this.putt();
+    localStorage.setItem("puntos", String(0) );
     
    }
 
@@ -96,7 +102,8 @@ this.ron= rondas +"/10";
   }else{
     this.router.navigate(['menu']);
     
-    
+    this.putt();
+    localStorage.setItem("puntos", String(0) );
   }
 
 
@@ -104,14 +111,14 @@ this.ron= rondas +"/10";
 }
 correcta(){  
   this.loading1 =true;
-   this.play(this.loading1);
+   this.play(this.loading);
 
  
 }
 
 incorrecta(){
   this.loading1 =false;
-  this.play(this.loading1);
+  this.play(this.loading);
 
 }
 

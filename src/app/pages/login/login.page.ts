@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
       password: this.password,
     });
     if (canLogin) {
-      
+      localStorage.setItem("token", canLogin.token)
       this.goToMenu();
     } else {
       this.error = 'Incorrect user or password';

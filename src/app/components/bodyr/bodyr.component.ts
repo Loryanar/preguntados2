@@ -64,25 +64,25 @@ const timm= parseInt(temi)+0.14+0.33
     }
   play(boolean){
   
-  
+   
   const rondas =localStorage.getItem("partidas1");
    const pu =localStorage.getItem("puntuacion1");
-  localStorage.setItem("partidas1", String(0) );
+ localStorage.setItem("partidas1", String(0) );
   localStorage.setItem("puntuacion1", String(0) );
-  localStorage.setItem("puntos1", String(0) );
+ 
   this.ron= 'Ronda' + rondas
     
       
-  
+  if(parseInt(rondas)>=0){
      if(this.loading1==true){
      
       const parti= parseInt(rondas)+1;
       console.log(parti)
       localStorage.setItem("partidas1", String(parti) );
   
-      const pts =localStorage.getItem("puntos1");
-      const p= parseInt(pu)+10;
-      const pun= parseInt(pts) + p;
+    
+      const p= parseInt(pu)+ 1;
+      const pun=  p;
       
      localStorage.setItem("puntos1", String(pun) );
       console.log(p)
@@ -91,28 +91,33 @@ const timm= parseInt(temi)+0.14+0.33
      this.goToRush();
     
      }else{
-      this.router.navigate(['menu']);
+       this.router.navigate(['menu']);
       localStorage.removeItem("partidas1" );
       localStorage.removeItem("puntuacion1" );
       this.putt();
+       localStorage.setItem("puntos1", String(0) );
      }
+  }else{this.router.navigate(['menu']);
+  localStorage.removeItem("partidas1" );
+  localStorage.removeItem("puntuacion1" );
+  this.putt();
+   localStorage.setItem("puntos1", String(0) );
   
-  
-    
+}
   
   
   
   }
   correcta(){  
     this.loading1 =true;
-     this.play(this.loading);
+     this.play(this.loading1);
   
    
   }
   
   incorrecta(){
     this.loading1 =false;
-    this.play(this.loading);
+    this.play(this.loading1);
   
   }
   
