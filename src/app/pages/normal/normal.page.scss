@@ -1,0 +1,23 @@
+.square {
+    width: 20px;
+    height: 10px;
+    background: rgba(77, 182, 252, 0.726);
+    margin: 10px;
+    position: relative;
+  }
+  img{
+    width: 70px;
+    height: 70px;
+    float: right;
+    margin-top: -30px;
+  }
+  .header{
+    position: relative;
+  }
+  .score{
+    float: left;
+    background-color: #fff;
+    width: 90px;
+    height: 50px;
+    font-size: 40px;
+  }
