@@ -91,7 +91,7 @@ const timm= parseInt(temi)+0.14+0.33
      this.goToRush();
     
      }else{
-      window.location.assign('/menu');
+      this.router.navigate(['menu']);
       localStorage.removeItem("partidas1" );
       localStorage.removeItem("puntuacion1" );
       this.putt();
@@ -136,7 +136,7 @@ const timm= parseInt(temi)+0.14+0.33
   
     if(this.timer<=0){
       alert('Tiempo agotado')
-      window.location.assign('/menu');
+      this.router.navigate(['menu']);
     localStorage.removeItem("partidas1" );}
   
   }
@@ -144,7 +144,7 @@ const timm= parseInt(temi)+0.14+0.33
   
   
   goToRush() {
-    window.location.assign('/rush');
+    this.router.navigate(['rush']);
   }
   
   async putt() {
@@ -154,7 +154,7 @@ const timm= parseInt(temi)+0.14+0.33
       modo: "rush",
     });
     if (obtenido) {
-      window.location.assign('/menu');
+      this.router.navigate(['menu']);
     } 
     this.loading = false;
   }

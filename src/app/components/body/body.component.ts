@@ -68,12 +68,9 @@ this.ron= rondas +"/10";
     
    if(this.loading1==true){
    
-    if(parseInt(rondas)==10){
-
-    }
-   
+     
     const parti= parseInt(rondas)+1;
-    console.log(parti)
+  
     localStorage.setItem("partidas", String(parti) );
 
     const pts =localStorage.getItem("puntos");
@@ -81,23 +78,25 @@ this.ron= rondas +"/10";
     const pun= parseInt(pts) + p;
     
    localStorage.setItem("puntos", String(pun) );
-    console.log(p)
+   
     localStorage.setItem("puntuacion", String(p) );
 
-   this.goToNormal();
+ 
+   this.router.navigate(['normal']);
   
     
    }else{
-    window.location.assign('/menu');
+    this.router.navigate(['menu']);
     localStorage.removeItem("partidas" );
     localStorage.removeItem("puntuacion" );
+    
    }
 
 
   }else{
-    window.location.assign('/menu');
+    this.router.navigate(['menu']);
     
-    this.putt();
+    
   }
 
 
@@ -105,14 +104,14 @@ this.ron= rondas +"/10";
 }
 correcta(){  
   this.loading1 =true;
-   this.play(this.loading);
+   this.play(this.loading1);
 
  
 }
 
 incorrecta(){
   this.loading1 =false;
-  this.play(this.loading);
+  this.play(this.loading1);
 
 }
 
@@ -136,7 +135,7 @@ updateTimeValue(){
 
   if(this.timer<=0){
     alert('Tiempo agotado')
-    window.location.assign('/menu');
+    this.router.navigate(['menu']);
   localStorage.removeItem("partidas" );}
 
 }
@@ -144,7 +143,7 @@ updateTimeValue(){
 
 
 goToNormal() {
-  window.location.assign('/normal');
+  this.router.navigate(['normal']);
 }
 
 async putt() {
@@ -154,7 +153,7 @@ async putt() {
     modo: "normal",
   });
   if (obtenido) {
-    window.location.assign('/menu');
+    this.router.navigate(['menu']);
   } 
   this.loading = false;
 }

@@ -51,7 +51,7 @@ return false;
   async obtener(params) {
     try {
       console.log(params);
-      await this.request.send(params, '/score');
+      await this.request.put(params, '/score');
       
       return true;
     } catch {
