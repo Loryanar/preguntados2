@@ -22,6 +22,7 @@ timer:number;
    respuestasf0: string;
    puntuacion: number;
    partidas:number;
+   rondas:string;
    ron: string;
    texto: string;
    interval; 
@@ -33,136 +34,121 @@ timer:number;
   }
 
   ngOnInit(){
-     this.preguntas();
-     this.startTimer(1)
+
+    this.preguntas();
+    this.startTimer(1)
     
-    }
+  }
 
   async preguntas() {
 
-    const rondas =localStorage.getItem("partidas");
+    let x = localStorage.getItem("partidas");
+    if(x == "NaN"){
+      localStorage.setItem("partidas",String(1))
+    } else {
+      localStorage.setItem("partidas",String(Number(x)+1))
+    }
+    this.rondas = localStorage.getItem("partidas")
     const canLogin = await this.auth.preguntas();
-    this.ron= rondas +"/10";
+    this.ron= this.rondas +"/10";
     this.category= canLogin.category;
     this.pregunta= canLogin.question;
     this.RespuestaC=canLogin.correct_answer;
     this.respuestasf=canLogin.incorrect_answers;
-
-this.respuestasf0= this.respuestasf[0];
-this.respuestasf1= this.respuestasf[1];
-this.respuestasf2= this.respuestasf[2];
-    
-
-  }
-play(boolean){
-
-
-const rondas =localStorage.getItem("partidas");
- const pu =localStorage.getItem("puntuacion");
-localStorage.setItem("partidas", String(0) );
-localStorage.setItem("puntuacion", String(0) );
-
-this.ron= rondas +"/10";
-  
-    if(parseInt(rondas)<=9){
-    
-   if(this.loading1==true){
-   
-    if(parseInt(rondas)==10){
-      this.router.navigate(['menu']);
-      this.putt();
-    }
-   
-    const parti= parseInt(rondas)+1;
-    console.log(parti)
-    localStorage.setItem("partidas", String(parti) );
-
-    const pts =localStorage.getItem("puntos");
-    const p= parseInt(pu)+10;
-    const pun=  p;
-    
-   localStorage.setItem("puntos", String(pun) );
-   
-    localStorage.setItem("puntuacion", String(p) );
-
-   this.goToNormal();
-   window.location.assign('normal');
-  
-    
-   }else{
-    this.router.navigate(['menu']);
-    localStorage.removeItem("partidas" );
-    localStorage.removeItem("puntuacion" );
-    this.putt();
-    localStorage.setItem("puntos", String(0) );
-    
-   }
-
-
-  }else{
-    this.router.navigate(['menu']);
-    
-    this.putt();
-    localStorage.setItem("puntos", String(0) );
+    this.respuestasf0= this.respuestasf[0];
+    this.respuestasf1= this.respuestasf[1];
+    this.respuestasf2= this.respuestasf[2];  
   }
 
+  play(boolean){
+  
+    
+      if(this.loading1==true){
 
+        let p = localStorage.getItem("puntos")
+        if (p == "NaN") {
+          localStorage.setItem("puntos", String(10))
+        } else {
+          localStorage.setItem("puntos", String(Number(p)+10))
+        }
+   
+        if(parseInt(this.rondas)==10){
+          
+          this.puntuacion = Number(localStorage.getItem("puntos"))
+          localStorage.removeItem("partidas")
+          localStorage.removeItem("puntos")
+          console.log(this.puntuacion);  
+          this.putt();
+        }
 
-}
-correcta(){  
-  this.loading1 =true;
-   this.play(this.loading);
+    
+        window.location.assign('normal');
+      
+      }else{
+        this.puntuacion = Number(localStorage.getItem("puntos"))
+        localStorage.removeItem("partidas")
+        localStorage.removeItem("puntos")
+        console.log(this.puntuacion); 
+        this.putt();
+      }
+  }
+  
+  correcta(){  
+    this.loading1 =true;
+    this.play(this.loading);
 
  
-}
+  }
 
-incorrecta(){
-  this.loading1 =false;
-  this.play(this.loading);
+  incorrecta(){
+    this.loading1 =false;
+    this.play(this.loading);
 
-}
+  }
 
-startTimer(duraction:number){
-  clearInterval(this.interval);
+  startTimer(duraction:number){
+    clearInterval(this.interval);
     this.timer= duraction *60;
     this.updateTimeValue()
-this.interval= setInterval(()=>{
-  this.updateTimeValue();
-},1000)
-}
-updateTimeValue(){
-  let minutes: any= this.timer / 60;
-  let seconds: any= this.timer % 60;
+    this.interval= setInterval(()=>{
+      this.updateTimeValue();
+    },1000)
+  }
+  updateTimeValue(){
+    let minutes: any= this.timer / 60;
+    let seconds: any= this.timer % 60;
 
-  minutes = String('0'+Math.floor(minutes)).slice(-2);
-  seconds = String('0'+Math.floor(seconds)).slice(-2);
-  const text = minutes+ ':' +seconds;
-  this.time.next(text); 
-  --this.timer;
+    minutes = String('0'+Math.floor(minutes)).slice(-2);
+    seconds = String('0'+Math.floor(seconds)).slice(-2);
+    const text = minutes+ ':' +seconds;
+    this.time.next(text); 
+    --this.timer;
 
-  if(this.timer==0){
-    alert('Tiempo agotado')
-    this.router.navigate(['menu']);
-  localStorage.removeItem("partidas" );}
+    if(this.timer==0){
+      alert('Tiempo agotado')
+      this.router.navigate(['menu']);
+      localStorage.removeItem("partidas" );
+    }
+  }
 
-}
 
+  goToNormal() {
+    window.location.assign('normal');
+  }
 
-
-goToNormal() {
-  window.location.assign('rush');
-}
-
-async putt() {
-  this.loading = true;
-  const obtenido = await this.auth.obtener({
-    recordscore: localStorage.getItem("puntos"),
-    modo: "normal",
-  });
-  if (obtenido) {
-    this.router.navigate(['menu']);
-  } 
-  this.loading = false;
-}
+  async putt() {
+    this.loading = true;
+    console.log(this.puntuacion);
+    
+    const obtenido = await this.auth.obtener({
+      recordscore: this.puntuacion,
+      modo: "normal",
+    });
+    if (obtenido) {
+      this.preguntas();
+      this.router.navigate(['menu']);
+    } 
+    this.loading = false;
+  }
 
 }
